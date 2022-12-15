@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="style_index.css">
+  </head>
+  <body>
+    <!-------------------------------DIV PRINCIPAL---------------------->
+    <!--<div id="lienzo"></div>--->
+    <div class="login-box" id="login" >
+      
+      <h1>Login Here</h1>
+      <div>
+        <!-- USERNAME INPUT -->
+        <label  for="username">Username</label>
+       <input  id="user1" name ="username" type="text" placeholder="Enter Username" value="">
+
+        <!-- PASSWORD INPUT -->
+        <label for="password">Password</label>
+        <input id="pass" name="passw" type="password" placeholder="Enter Password">
+
+
+        <label  for="administrator">Administrador</label>
+        <input id="admin" name ="check" type="checkbox">
+        <input  id="boton_login" type="submit" value="Log In" onclick="validarlogin()">
+        
+        <a href="#">Don't have An account?</a>
+        
+      </div>
+    </div>
+
+    <!-------------------------------DIV ADMINISTRADOR---------------------->
+    <div id="contenedor" style ="display:none"> 
+      <div class="menu_admin">
+          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_usuario').click()">Usuarios</button>
+          <input type='file' id="archivo_usuario" style="display:none" >
+  
+          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_artista').click()">Artista</button>
+          <input type='file' id="archivo_artista" style="display:none">
+  
+          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_canciones').click()">Canciones</button>
+          <input type='file' id="archivo_canciones" style="display:none">
+  
+          <button style="display:block;width:120px; height:40px;" onclick="document.getElementById('archivo_musicaprog').click()">Música Programada</button>
+          <input type='file' id="archivo_musicaprog" style="display:none">
+  
+          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_podcast').click()">Podcast</button>
+          <input type='file' id="archivo_podcast" style="display:none">
+      
+      
+      </div>
+      <br>
+  
+      <div class ="menu_grafica" >
+          <button style="display:block;width:120px; height:30px;"> Usuarios</button> <br>
+          <button style="display:block;width:120px; height:30px;"> Artistas</button> <br>
+          <button style="display:block;width:120px; height:40px;"> Musica Programada</button> <br>
+          <button style="display:block;width:120px; height:30px;"> Podcast</button> <br>
+  
+      </div>
+  
+      <div id="imagen">
+  
+      </div>
+  
+      
+  
+     
+      <button> Descargar </button>
+      </div>
+
+
+    <!-------------------------------DIV ADMINISTRADOR---------------------->
+    <!-------------------------------DIV ADMINISTRADOR---------------------->
+    <!-------------------------------DIV ADMINISTRADOR---------------------->
+    <!-------------------------------DIV ADMINISTRADOR---------------------->
+
+    <!----<button onclick="ingresar()">Click</button>--------->
+   
+   <script src="https://d3js.org/d3.v5.min.js"></script>
+   <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>   
+   <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+
+   <!--<script src="lista_simple.js"></script> --> 
+   <script src="index.js"></script>
+  
+
+  </body>
+</html>
