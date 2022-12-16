@@ -1,70 +1,122 @@
 class Nodo{
-    constructor(_equipo){
-        this.equipo = _equipo
+    constructor(_playlist){
+        this.playlist = _playlist
         this.siguiente = null
-        this.anterior = null
+        this.anterior =null
     }
-
-
 }
 
-class Listadoble{
+export class Listadoble{
     constructor(){
-        this.cabecera =null
-        this.ultimo = null
-        this.tam =0
+        this.cabecera = null
+        this.ultimo= null
+        this.tamanio=0
     }
 
-    agregarEquipo(_objetoequipo){
-        let temporal = new Nodo(_objetoequipo)
-        //listavacia
-        if(this.cabecera==null){
+    agregarPlaylist(_objetoPlaylist){
+        var temporal = new Nodo(_objetoPlaylist)
+        // lista vacia
+
+        if(this.cabecera == null){
             this.cabecera = temporal
             this.ultimo = this.cabecera
             this.cabecera.siguiente = this.ultimo
-            this.cabecera.anterior = this.ultimo
-            this.ultimo.siguiente = this.cabecera
-            this.ultimo.anterior = this.cabecera
-            this.tam++
+            this.cabecera.anterior =this.ultimo
 
+            this.ultimo.siguiente = this.cabecera
+            this.ultimo.anterior =this.caebecera
+
+            this.tamanio++
 
         }
         else{
-            this.ultimo.siguiente = temporal
+            this.ultimo.siguiente =temporal
             temporal.anterior = this.ultimo
-            this.ultimo= temporal
+            this.ultimo = temporal
             this.cabecera.anterior = this.ultimo
-            this.ultimo.siguiente= this.cabecera
-            this.tam++
+            this.ultimo.siguiente = this.cabecera
+            this.tamanio++
+
+
         }
     }
-
-    mostrarEquipo(){
+    /*
+    mostrarEquipos(){
         let temporal = this.cabecera
-        let cont =0
-        while(cont<this.tam){
+        let count =0
+        while (count<this.tamanio){
             console.log(temporal.equipo.nombre)
             console.log(temporal.equipo.cantjugadores)
             console.log(temporal.equipo.copas)
-            console.log("--------------------------------")
-            temporal= temporal.siguiente
-            cont++
+            
+            console.log("-------------------------------")
+            temporal = temporal.siguiente
+            count++
         }
     }
+    */
+    
+    graficarlistaPlaylist(){
+        var codigodot = "digraph G{\nlabel=\" Playlist \";\nnode [shape=box];\n graph [rankdir = LR];";
+        var temporal = this.cabecera
+    //    var temporal2 = this.ultimo
+        var conexiones ="";
+        var nodos ="";
+        var numnodo= 0; // sirve de identificador
+        while (numnodo < this.tamanio) {
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.playlist.name +"\" ];\n"
+            if(temporal.siguiente != this.cabecera){
+                var auxnum = numnodo+1
+                conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
+                conexiones += "N" + auxnum + " -> N" + numnodo + ";\n"
+            }
+            else{
+                conexiones += "N" + numnodo + " -> N" + 0 + ";\n"
+                conexiones += "N" + 0 + " -> N" + numnodo + ";\n"
+            }
+            temporal = temporal.siguiente
+            numnodo++;            
+        }
+        codigodot += "//agregando nodos\n"
+        codigodot += nodos+"\n"
+        codigodot += "//agregando conexiones o flechas\n"
+        codigodot += "{\n"+conexiones+"\n}\n}"
+        console.log(codigodot)
+        d3.select("#lienzo").graphviz()
+            .width(900)
+           .height(500)
+            .renderDot(codigodot)
+    }
 
 }
 
-
-class Equipo{
-    constructor(_nombre,_cantjugadores,_copas){
-        this.nombre =_nombre
-        this.cantjugadores =_cantjugadores
-        this.copas =_copas
+export class Reproductor{
+    constructor(_nombre,_age,_country){
+        this.name = _nombre
+        this.age =_age
+        this.country =_country
     }
 }
+/*
+function render() {  
+   Listadoble.graficarlistaEquipo()   
+}  
+
 
 let champions = new Listadoble()
-let equipochampions = new Equipo("Real madrid",32, 14)
-champions.agregarEquipo(equipochampions)
+let equipo_champions = new Equipo("Real Madrid","32","14")
+champions.agregarEquipo(equipo_champions)
 
-champions.mostrarEquipo()
+
+let equipo2 = new Equipo ("PSG", "0","14")
+champions.agregarEquipo(equipo2)
+
+let equipo3 = new Equipo ("MS", "0","14")
+champions.agregarEquipo(equipo3)
+
+let equipo4 = new Equipo ("ME", "0","14")
+champions.agregarEquipo(equipo4)
+
+champions.mostrarEquipos()
+champions.graficarlistaEquipo()
+*/

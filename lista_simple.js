@@ -1,52 +1,48 @@
+
+
+
+
 class Nodo{
     constructor(_usuario){
-        this.usuario = _usuario
-        this.siguiente= null
-        
+        this.usuario=_usuario
+        this.siguiente =null
     }
 }
 
-//lista es una composicion de nodos
+export class ListaSimple{
 
-class ListaSimple{
-    constructror(){
-        this.cabeza=null
-
+    constructor(){
+        this.cabecera =null
     }
 
-    //metodos de la lista
-    //insertar
+    agregarUsuario(objeto_usuario){
+        let temporal = new Nodo(objeto_usuario)
+        temporal.siguiente = this.cabecera
+        this.cabecera = temporal
 
-    agregarUsuario(datosUsuario){
-       let tempo = new Nodo(datosUsuario)
-       tempo.siguiente = this.cabeza
-       this.cabeza = tempo
-      
     }
-
-    // mostrarlistaPokemon
 
     mostrarUsuario(){
-        let tempo = this.cabeza
-        
-        while(tempo!=null){
-            console.log(tempo.usuario.user)
-            console.log(tempo.usuario.nombre)
-            console.log(tempo.usuario.dpi)
-            console.log(tempo.usuario.telefono)
-            console.log(tempo.usuario.password)
+        let temporal = this.cabecera
+        while(temporal!= null){
+            console.log(temporal.usuario.username)
+            console.log(temporal.usuario.nombre)
+            console.log(temporal.usuario.dpi)
+            console.log(temporal.usuario.telefono)
+            console.log(temporal.usuario.password)
             console.log("----------------------")
-            tempo = tempo.siguiente
+            temporal = temporal.siguiente
         }
     }
-    graficarlistaUsuarios(){
-        var codigodot = "digraph G{\nlabel=\" Usuarios \";\nnode [shape=box];\n graph [rankdir = LR];";
+
+    graficarlistaUsuario(){
+        var codigodot = "digraph G{\nlabel=\" Usuario \";\nnode [shape=box];\n graph [rankdir = LR];";
         var temporal = this.cabecera
         var conexiones ="";
         var nodos ="";
         var numnodo= 0; // sirve de identificador
         while (temporal != null) {
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.usuario.user +"\" ];\n"
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.usuario.dpi+"\n" + temporal.usuario.nombre+"\n"+ temporal.usuario.username+"\n"+temporal.usuario.password+"\n"+ temporal.usuario.telefono+"\n"+ temporal.usuario.admin+"\" ];\n"
             if(temporal.siguiente != null){
                 var auxnum = numnodo+1
                 conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
@@ -64,29 +60,36 @@ class ListaSimple{
            .height(500)
             .renderDot(codigodot)
     }
-}
+    }
 
-class Usuario{
-    constructor(_username,_nombre,_dpi,_telefono,_password){
-        this.user = _username
-        this.nombre=_nombre
-        this.dpi =_dpi
-        this.telefono =_telefono
+
+
+export class Datos_usuario{
+    constructor(_username,_nombre,_dpi,_telefono,_password,_admin){
+        this.username = _username
+        this.nombre =_nombre
+        this.dpi = _dpi
+        this.telefono = _telefono
         this.password = _password
-
+        this.admin = _admin
 
     }
+    
 }
 
-
+/*
 const lista = new ListaSimple()
-usuario1 = new Usuario("HQ","Luis Ruben ",556565655,5699999,"controlx123")
+usuario1 = new Usuario("HQ","Luis Ruben ",556565655,5699999,"controlx123",false)
 lista.agregarUsuario(usuario1)
 
 
 
-usuario1 = new Usuario("Armin","Oscar Armin",656333333,2465922,"generado2")
+usuario1 = new Usuario("Armin","Oscar Armin",656333333,2465922,"generado2",true)
 lista.agregarUsuario(usuario1)
+*/
+
+
+
 
 
 

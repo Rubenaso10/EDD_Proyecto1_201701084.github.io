@@ -23,7 +23,8 @@
 
         <label  for="administrator">Administrador</label>
         <input id="admin" name ="check" type="checkbox">
-        <input  id="boton_login" type="submit" value="Log In" onclick="validarlogin()">
+        <button id="boton_login" style="width:120px; height:30px;" onclick="validarLogin()" >Login</button>
+        
         
         <a href="#">Don't have An account?</a>
         
@@ -31,12 +32,16 @@
     </div>
 
     <!-------------------------------DIV ADMINISTRADOR---------------------->
+    
+    
     <div id="contenedor" style ="display:none"> 
       <div class="menu_admin">
-          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_usuario').click()">Usuarios</button>
+          <div id="lienzo"></div>
+
+          <button id="boton1" style="display:block;width:120px; height:30px;" onclick="saveUser()" >Usuarios</button>
           <input type='file' id="archivo_usuario" style="display:none" >
   
-          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_artista').click()">Artista</button>
+          <button style="display:block;width:120px; height:30px;" onclick="saveArtist()">Artista</button>
           <input type='file' id="archivo_artista" style="display:none">
   
           <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_canciones').click()">Canciones</button>
@@ -83,7 +88,7 @@
    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 
    <!--<script src="lista_simple.js"></script> --> 
-   <script src="index.js"></script>
+   <script src="index.js" type="module"  ></script>
   
 
   </body>
