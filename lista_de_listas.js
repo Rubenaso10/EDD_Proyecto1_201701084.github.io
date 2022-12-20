@@ -14,13 +14,22 @@ class Nodo2{
     }
 }
 
-class Listadelistas{
+export class Listadelistas{
     constructor(){
         this.cabecera = null
     }
     //metodos de insertar
 
     InsertarAlbum(_nombrealbum){
+        let aux = this.cabecera
+        while(aux!= null){
+            if(aux.nombrealbum != _nombrealbum){
+                console.log(aux.nombrealbum,_nombrealbum)
+                return
+            }
+            aux = aux.siguiente
+            
+        }
         let temporal = new Nodo(_nombrealbum)
         temporal.siguiente = this.cabecera
         this.cabecera = temporal
@@ -30,7 +39,7 @@ class Listadelistas{
         let temporalalbum = this.cabecera
         //recorrer toda la lista de albums
         while(temporalalbum!=null){
-            if(temporalalbum.nombrealbum== _nombrealbum){
+            if(temporalalbum.nombrealbum == _nombrealbum){
                 console.log("Si se encontró el album" + "  " +_nombrealbum)
                 let nuevacancion = new Nodo2(_nombrecancion)
                 let iniciocanciones = temporalalbum.abajo
@@ -75,28 +84,59 @@ class Listadelistas{
             console.log("No se pudo encontrar el album solicitado"+_nombrealbum)
         }
     }
+
+    graficarlistaArtista(){
+
+        var codigodot = `digraph G{
+            label=" Artista-Cancion ";
+            node [shape=box];
+             graph [rankdir = "both"];\n`
+
+        var temporal_artista = this.cabecera
+      
+    //    var temporal2 = this.ultimo
+        var conexiones ="";
+        var nodos ="";
+        var numartista= 0; // sirve de identificador
+        var rank ="{ rank = same;"
+        while (temporal_artista!=null) {
+            var numcanciones= 0
+            nodos+= "A"  + numartista + "[label=\"" + temporal_artista.nombrealbum + " \" group="+numartista+" ];\n"
+            rank+= "A"+numartista+";"
+            var temporal_canciones = temporal_artista.abajo
+            if(temporal_canciones!=null){
+                conexiones += "C" + 0 + "A" + numartista+" -> " +"A" + numartista+ ";\n"
+                conexiones += "A" + numartista+" -> " + "C"+0+"A" + numartista+ ";\n"
+               
+            }
+            if (temporal_artista.siguiente!=null){
+                var auxnum = numartista+1
+                    conexiones +=  "A" + numartista+" -> A" + auxnum+ ";\n"
+                    conexiones +=  "A" + auxnum+" -> A"+numartista+";\n"
+            }
+            while(temporal_canciones!=null){
+                nodos+= "C"  + numcanciones + "A"+numartista+"[label=\"" + temporal_canciones.nombrecancion +"\" group="+numartista+"];\n"
+                if (temporal_canciones.siguiente!= null){
+                    var auxnum = numcanciones+1
+                    conexiones += "C" + auxnum + "A" + numartista+" -> C" + numcanciones+"A" + numartista+ ";\n"
+                    conexiones += "C" + numcanciones + "A" + numartista+" -> C" + auxnum + "A"+numartista+";\n"
+                }
+                temporal_canciones =temporal_canciones.siguiente
+                numcanciones++;   
+            }
+            temporal_artista = temporal_artista.siguiente
+            numartista++;            
+        }
+
+        rank += "}\n"
+        codigodot += "//agregando nodos\n"
+        codigodot += nodos+"\n"
+        codigodot += "//agregando conexiones o flechas\n"
+        codigodot += "{\n"+conexiones+"\n"+rank+"}\n}"
+        console.log(codigodot)
+        d3.select("#lienzo").graphviz()
+            .width(900)
+           .height(500)
+            .renderDot(codigodot)
+    }
 }
-
-let listadelistas = new Listadelistas()
-//album
-listadelistas.InsertarAlbum("Verano sin Ti")
-listadelistas.InsertarAlbum("Demon days")
-listadelistas.InsertarAlbum("The Wall")
-listadelistas.MostrarAlbum()
-// album Verano sin ti
-listadelistas.InsertarCancion("Verano sin Ti","Moscow Mule")
-listadelistas.InsertarCancion("Verano sin Ti","Party")
-listadelistas.InsertarCancion("Verano sin Ti","Titi me pregunto")
-listadelistas.InsertarCancion("Verano sin Ti","Me porto bonito")
-//album Demon days
-listadelistas.InsertarCancion("Demon days","Dare")
-listadelistas.InsertarCancion("Demon days","Dirty Harry")
-listadelistas.InsertarCancion("Demon days","El mañana")
-//album The Wall
-listadelistas.InsertarCancion("The Wall","Hey you")
-listadelistas.InsertarCancion("The Wall","Comfortably Numb")
-listadelistas.InsertarCancion("The Wall","Feel good Inc")
-
-listadelistas.MostrarCanciones("Demon days")
-listadelistas.MostrarCanciones("Verano sin Ti")
-listadelistas.MostrarCanciones("The Wall")

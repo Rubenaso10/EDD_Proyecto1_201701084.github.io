@@ -1,20 +1,20 @@
 class Nodo{
     constructor(_playlist){
-        this.playlist = _playlist
+        this.origin_playlist = _playlist
         this.siguiente = null
         this.anterior =null
     }
 }
 
-export class Listadoble{
+ export class Listadoble{
     constructor(){
         this.cabecera = null
         this.ultimo= null
         this.tamanio=0
     }
 
-    agregarPlaylist(_objetoPlaylist){
-        var temporal = new Nodo(_objetoPlaylist)
+    agregarPlaylist(objetoPlaylist){
+        var temporal = new Nodo(objetoPlaylist)
         // lista vacia
 
         if(this.cabecera == null){
@@ -40,7 +40,7 @@ export class Listadoble{
 
         }
     }
-    /*
+
     mostrarEquipos(){
         let temporal = this.cabecera
         let count =0
@@ -54,7 +54,7 @@ export class Listadoble{
             count++
         }
     }
-    */
+
     
     graficarlistaPlaylist(){
         var codigodot = "digraph G{\nlabel=\" Playlist \";\nnode [shape=box];\n graph [rankdir = LR];";
@@ -64,7 +64,7 @@ export class Listadoble{
         var nodos ="";
         var numnodo= 0; // sirve de identificador
         while (numnodo < this.tamanio) {
-            nodos+=  "N" + numnodo + "[label=\"" + temporal.playlist.name +"\" ];\n"
+            nodos+=  "N" + numnodo + "[label=\"" + temporal.origin_playlist.name+"\n" +temporal.origin_playlist.age+"\n"+temporal.origin_playlist.country+"\n" +"\" ];\n"
             if(temporal.siguiente != this.cabecera){
                 var auxnum = numnodo+1
                 conexiones += "N" + numnodo + " -> N" + auxnum + ";\n"
@@ -90,33 +90,11 @@ export class Listadoble{
 
 }
 
-export class Reproductor{
-    constructor(_nombre,_age,_country){
-        this.name = _nombre
-        this.age =_age
+ export class ReproductorMusica{
+    constructor(_name,_age,_country){
+        this.name = _name
+        this.age=_age
         this.country =_country
+        
     }
 }
-/*
-function render() {  
-   Listadoble.graficarlistaEquipo()   
-}  
-
-
-let champions = new Listadoble()
-let equipo_champions = new Equipo("Real Madrid","32","14")
-champions.agregarEquipo(equipo_champions)
-
-
-let equipo2 = new Equipo ("PSG", "0","14")
-champions.agregarEquipo(equipo2)
-
-let equipo3 = new Equipo ("MS", "0","14")
-champions.agregarEquipo(equipo3)
-
-let equipo4 = new Equipo ("ME", "0","14")
-champions.agregarEquipo(equipo4)
-
-champions.mostrarEquipos()
-champions.graficarlistaEquipo()
-*/
