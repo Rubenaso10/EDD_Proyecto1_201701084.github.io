@@ -9,12 +9,20 @@ import { Listadelistas } from "./lista_de_listas.js"
 
 import {Matriz,DatosMatriz} from "./matriz_dispersa.js"
 
+import {Arbol_binario,Podcast} from "./ABB.js"
+import  "./sha256.js"
+
+
 
 var miLista = new ListaSimple()
 var miListaDoble = new Listadoble()
 var listas = new Listadelistas ()
 //var lista_cancion = []
 var matrizDispersa = new Matriz()
+
+var arbol = new Arbol_binario()
+var pod = new Podcast()
+
 
 
 
@@ -30,7 +38,8 @@ window.validarLogin=function(){
   let user = document.getElementById("user1").value
   let password= document.getElementById("pass").value
   let cheque = document.getElementById("admin")
-  if (user=="EDD"&& password =="123"&& cheque.checked){
+  //console.log(sha256(password))
+  if (user=="EDD"&& sha256(password)=="a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" && cheque.checked){
     navUsuario2.style.display ="block"
     navUsuario.style.display = "none"
   }
@@ -56,12 +65,13 @@ window.saveUser=function(){
       var archivito = JSON.parse(reader.result)
       //console.log(archivito)
       for(window.e of archivito ){
-        window.usuario1= new Datos_usuario(window.e.username,window.e.name,window.e.dpi,window.e.phone,window.e.password,window.e.admin )
+        var passencriptada = sha256(window.e.password)
+        window.usuario1= new Datos_usuario(window.e.username,window.e.name,window.e.dpi,window.e.phone,passencriptada,window.e.admin )
         miLista.agregarUsuario(window.usuario1)
-        console.log(window.usuario1)
+        console.log(passencriptada)
      }
      miLista.mostrarUsuario()
-     miLista.graficarlistaUsuario()
+     //miLista.graficarlistaUsuario()
     }
 
 
@@ -72,6 +82,9 @@ window.saveUser=function(){
 
 }
 
+window.showUser=function(){
+  miLista.graficarlistaUsuario()
+}
 window.saveArtist = function(){
   let reader = new FileReader()
   document.getElementById('archivo_artista').click()
@@ -92,7 +105,7 @@ window.saveArtist = function(){
         console.log(window.usuario2.country)
      }
      //miLista.mostrarUsuario()
-     miListaDoble.graficarlistaPlaylist()
+     //miListaDoble.graficarlistaPlaylist()
     }
 
 
@@ -100,8 +113,11 @@ window.saveArtist = function(){
 )
 }
 
+window.showArtist=function(){
+  miListaDoble.graficarlistaPlaylist()
+}
 
-window.saveSongs = function(){
+window.saveSongs = function(){  
   let reader = new FileReader()
   document.getElementById('archivo_canciones').click()
   const fileSelector = document.getElementById('archivo_canciones');
@@ -138,7 +154,9 @@ window.saveSongs = function(){
 }
 )
 }
-
+//window.showPlaylist=function(){
+  //listas.graficarlistaArtista()
+//}
 window.saveCalendar = function(){
   let reader = new FileReader()
   document.getElementById('archivo_musicaprog').click()
@@ -157,12 +175,49 @@ window.saveCalendar = function(){
       }
      //miLista.mostrarUsuario()
     // miListaDoble.graficarlistaPlaylist()
-    matrizDispersa.exportRender()
+    //matrizDispersa.exportRender()
     }
 
 
 }
 )
+}
+window.showCalendar=function(){
+  matrizDispersa.exportRender()
+}
+
+window.savePodcast = function(){
+  let reader = new FileReader()
+  document.getElementById('archivo_podcast').click()
+  const fileSelector = document.getElementById('archivo_podcast');
+  fileSelector.addEventListener("change", (event) => {
+    const fileList = event.target.files;
+    //console.log(fileList[0]);
+    reader.readAsText(fileList[0])
+    reader.onload = function (){
+      //console.log(reader.result)
+      var arch = JSON.parse(reader.result)
+      //console.log(archivito)
+      for(window.e of arch ){
+        window.node_tree = new Podcast(window.e.name,window.e.topic,window.e.guests,window.e.duration)
+        arbol.poner(node_tree)
+        //window.mat_dispersa = new DatosMatriz(window.e.month,window.e.day,window.e.song,window.e.artist)
+        //matrizDispersa.insertar(window.e.day, window.e.month, mat_dispersa)
+        
+
+      }
+     //miLista.mostrarUsuario()
+    // miListaDoble.graficarlistaPlaylist()
+    //arbol.graficar_binario("lienzo",1000,1000)
+    }
+
+
+}
+)
+}
+
+window.showPodcast=function(){
+  arbol.graficar_binario("lienzo",1000,1000)
 }
 window.validarusuario=function(){
   navUsuario3.style.display="block"
@@ -175,8 +230,8 @@ window.ingresar=function(){
   let dpi = document.getElementById("dpi").value
   let telefono = document.getElementById("phone").value
   let password = document.getElementById("pass").value
-  let admin = document.getElementById("admin").value
-  window.usuarios= new Datos_usuario(username,nombre,dpi,telefono,password,admin )
+  let admin = document.getElementById("admin2").checked
+  window.usuarios= new Datos_usuario(username,nombre,dpi,telefono,sha256(password),admin )
   miLista.agregarUsuario(window.usuarios)
 
   alert("Datos ingresados")

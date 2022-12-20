@@ -36,8 +36,8 @@
     
     <div id="contenedor" style ="display:none"> 
       <div class="menu_admin">
-          <div id="lienzo"></div>
-          <div id="lienzo2"></div>
+          
+         
 
           <button id="boton1" style="display:block;width:120px; height:30px;" onclick="saveUser()" >Usuarios</button>
           <input type='file' id="archivo_usuario" style="display:none" >
@@ -51,7 +51,7 @@
           <button style="display:block;width:120px; height:40px;" onclick="saveCalendar()">Música Programada</button>
           <input type='file' id="archivo_musicaprog" style="display:none">
   
-          <button style="display:block;width:120px; height:30px;" onclick="document.getElementById('archivo_podcast').click()">Podcast</button>
+          <button style="display:block;width:120px; height:30px;" onclick="savePodcast()">Podcast</button>
           <input type='file' id="archivo_podcast" style="display:none">
       
       
@@ -59,16 +59,14 @@
       <br>
   
       <div class ="menu_grafica" >
-          <button style="display:block;width:120px; height:30px;"> Usuarios</button> <br>
-          <button style="display:block;width:120px; height:30px;"> Artistas</button> <br>
-          <button style="display:block;width:120px; height:40px;"> Musica Programada</button> <br>
-          <button style="display:block;width:120px; height:30px;"> Podcast</button> <br>
+          <button style="display:block;width:120px; height:30px;" onclick="showUser()"> Usuarios</button> <br>
+          <button style="display:block;width:120px; height:30px;" onclick="showArtist()"> Artistas</button> <br>
+          <button style="display:block;width:120px; height:40px;" onclick="showCalendar()"> Musica Programada</button> <br>
+          <button style="display:block;width:120px; height:30px;" onclick="showPodcast()"> Podcast</button> <br>
   
       </div>
   
-      <div id="imagen">
-  
-      </div>
+      <div id="lienzo" ></div>
   
       
   
@@ -102,8 +100,8 @@
           <label for="password">Password</label>
           <input id="pass" type="password" placeholder="Enter Password"> <br>
 
-          <label for="admin">Administrador</label>
-          <input id="admin" type="text" placeholder="Enter Rol"> <br>
+          <label for="admin2">Administrador</label>
+          <input id="admin2" type="checkbox" placeholder="Enter Rol"> <br>
          
           <button id="botoningresar" style="width:120px; height:30px;" onclick="ingresar()" >Ingresar</button>
           <button id="botoncancelar" style="width:120px; height:30px;" onclick="cancelar()" >Cancelar</button>

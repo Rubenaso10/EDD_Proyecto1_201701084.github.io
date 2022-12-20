@@ -22,14 +22,14 @@ export class Listadelistas{
 
     InsertarAlbum(_nombrealbum){
         let aux = this.cabecera
-        while(aux!= null){
-            if(aux.nombrealbum != _nombrealbum){
-                console.log(aux.nombrealbum,_nombrealbum)
-                return
-            }
-            aux = aux.siguiente
+        //while(aux!= null){
+          //  if(aux.nombrealbum != _nombrealbum){
+            //    console.log(aux.nombrealbum,_nombrealbum)
+              //  return
+           // }
+           // aux = aux.siguiente
             
-        }
+        //}
         let temporal = new Nodo(_nombrealbum)
         temporal.siguiente = this.cabecera
         this.cabecera = temporal
